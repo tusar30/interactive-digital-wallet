@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    <form action="./TransactionHistory.html" method="GET" name="transForm" onsubmit="getVal(); return false;">
+    <input type="date" id="search-box" name="search-box">
+    <input type="time" id="time-box" name="time-box">
+    <input type="submit" value="search">
+    </form>
+    <p id="t1">Transactions History</p>
+    
+    <script>
+        function getVal(){
+            var val=document.getElementById("search-box").value;
+            var val2=document.getElementById("time-box").value;
+            var space=" ";
+            var records = val+space+val2;
+            fetch(records);
+        }
+        function fetch(records){
+            var xhttp=new XMLHttpRequest();
+            xhttp.onload=function(){
+                if(this.status==200){
+                    document.getElementById("t1").innerHTML=this.responseText;
+            
+                }
+            };
+            xhttp.open("GET","DBFunctions.php?time="+records,true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
